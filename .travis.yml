@@ -9,14 +9,14 @@ script:
   - docker run palo/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t palo/multi-client ./client
-  - docker build -t palo/multi-nginx ./nginx
-  - docker build -t palo/multi-server ./server
-  - docker build -t palo/multi-worker ./worker
+  - docker build -t pablo161/multi-client ./client
+  - docker build -t pablo161/multi-nginx ./nginx
+  - docker build -t pablo161/multi-server ./server
+  - docker build -t pablo161/multi-worker ./worker
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   
-  - docker push palo/multi-client
-  - docker push palo/multi-nginx
-  - docker push palo/multi-server
-  - docker push palo/multi-worker
+  - docker push pablo161/multi-client
+  - docker push pablo161/multi-nginx
+  - docker push pablo161/multi-server
+  - docker push pablo161/multi-worker
