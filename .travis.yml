@@ -14,8 +14,8 @@ after_success:
   - docker build -t palo/multi-server ./server
   - docker build -t palo/multi-worker ./worker
 
-    #take those images and push them to dockerhub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  
   - docker push palo/multi-client
   - docker push palo/multi-nginx
   - docker push palo/multi-server
