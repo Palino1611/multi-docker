@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t palo/react-test -f ./client/Dockerfile.dev ./client
+  
+script:
+  - docker run palo/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t palo/multi-client ./client
+  - docker build -t palo/multi-nginx ./nginx
+  - docker build -t palo/multi-server ./server
+  - docker build -t palo/multi-worker ./worker
+
+    #take those images and push them to dockerhub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push palo/multi-client
+  - docker push palo/multi-nginx
+  - docker push palo/multi-server
+  - docker push palo/multi-worker
